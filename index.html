@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEOGEN — Connected to Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* === NEOGEN COLOUR SYSTEM === */
+:root {
+  --abyss:    #1a0b30;
+  --void:     #2d1454;
+  --purple:   #3e1e68;
+  --iris2:    #5a2e94;
+  --iris:     #7c4db8;
+  --lavender: #a67dd4;
+  --mist:     #d4b8f5;
+  --whisper:  #f0e6ff;
+  --obsidian: #08050f;
+  --onyx:     #0e0a18;
+  --midnight: #1e1533;
+  --dusk:     #3d2a60;
+  --slate:    #7a6a90;
+  --silver:   #c8b8d8;
+  --parchment:#f0e8f8;
+  --cream:    #fefcf6;
+  --mint:     #2ecc71;
+  --sky:      #4a90d9;
+  --gold:     #f5c842;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--obsidian);color:var(--cream);line-height:1.6}
+
+/* NAV */
+nav{background:var(--obsidian);border-bottom:0.5px solid var(--dusk);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-dots{display:flex;gap:4px;align-items:center}
+.ld{border-radius:50%}
+.logo-word{font-size:17px;font-weight:700;letter-spacing:0.08em;color:var(--cream)}
+.nav-links{display:flex;gap:4px}
+.nav-links a{font-size:13px;color:var(--slate);text-decoration:none;padding:7px 14px;border-radius:8px;transition:all .15s}
+.nav-links a:hover{color:var(--cream);background:rgba(255,255,255,.05)}
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-login{font-size:13px;color:var(--slate);background:none;border:none;cursor:pointer;font-family:inherit;padding:8px 14px}
+.btn-enroll{font-size:13px;font-weight:700;color:var(--cream);background:var(--purple);border:none;border-radius:10px;padding:10px 22px;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-enroll:hover{background:var(--iris2)}
+
+/* HERO */
+.hero{background:var(--obsidian);padding:96px 48px 72px}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;background:var(--abyss);border:0.5px solid var(--void);border-radius:999px;padding:6px 16px;margin-bottom:32px}
+.chip-dot{width:7px;height:7px;border-radius:50%;background:var(--mint)}
+.chip-text{font-size:12px;color:var(--lavender);letter-spacing:.04em}
+.hero h1{font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1.0;letter-spacing:-.04em;color:var(--cream);margin-bottom:24px}
+.hero h1 .acc{color:var(--lavender)}
+.hero h1 .dim{color:var(--dusk)}
+.hero p{font-size:17px;color:var(--slate);max-width:480px;line-height:1.65;margin-bottom:40px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:64px}
+.ha-main{background:var(--cream);color:var(--obsidian);font-size:15px;font-weight:700;padding:15px 36px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;transition:background .15s}
+.ha-main:hover{background:var(--whisper)}
+.ha-ghost{background:transparent;color:var(--silver);font-size:15px;font-weight:500;padding:14px 28px;border-radius:12px;border:0.5px solid var(--void);cursor:pointer;font-family:inherit;transition:all .15s}
+.ha-ghost:hover{color:var(--cream);border-color:var(--iris)}
+.stats{display:flex;gap:48px;padding-top:40px;border-top:0.5px solid var(--void);flex-wrap:wrap}
+.stat-n{font-size:36px;font-weight:800;color:var(--cream);letter-spacing:-.03em}
+.stat-n span{color:var(--iris)}
+.stat-l{font-size:12px;color:var(--slate);margin-top:4px}
+
+/* STATS BAR */
+.statsbar{background:var(--purple);padding:52px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.sb-item{padding:0 32px;border-right:0.5px solid rgba(255,255,255,.15);text-align:left}
+.sb-item:first-child{padding-left:0}
+.sb-item:last-child{border-right:none}
+.sb-n{font-size:48px;font-weight:800;color:var(--cream);letter-spacing:-.04em;line-height:1}
+.sb-n span{color:var(--mist)}
+.sb-l{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px}
+
+/* GENERIC SECTION */
+.section{padding:88px 48px}
+.sec-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--iris);margin-bottom:14px;font-weight:600}
+.sec-h2{font-size:clamp(32px,4vw,44px);font-weight:800;color:var(--cream);letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.sec-sub{font-size:16px;color:var(--slate);line-height:1.65;max-width:500px}
+
+/* PATHS */
+.paths-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.path-card{border-radius:24px;padding:40px;min-height:460px;display:flex;flex-direction:column;justify-content:space-between}
+.path-sub{background:var(--abyss);border:0.5px solid var(--purple)}
+.path-store{background:#060d18;border:0.5px solid #0f2440}
+.path-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:4px 14px;border-radius:999px;margin-bottom:24px}
+.path-badge-sub{background:var(--void);color:var(--lavender);border:0.5px solid var(--purple)}
+.path-badge-store{background:#0a1e36;color:var(--sky);border:0.5px solid #1a3050}
+.path-icon{font-size:32px;margin-bottom:20px}
+.path-icon-sub{color:var(--iris)}
+.path-icon-store{color:var(--sky)}
+.path-h3{font-size:30px;font-weight:700;color:var(--cream);letter-spacing:-.02em;margin-bottom:12px}
+.path-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:28px}
+.path-feats{margin-bottom:28px}
+.pf{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.7);padding:5px 0}
+.pf::before{content:'';width:6px;height:6px;border-radius:50%;min-width:6px}
+.pf-sub::before{background:var(--mist)}
+.pf-store::before{background:var(--sky)}
+.path-price{font-size:36px;font-weight:800;color:var(--cream);letter-spacing:-.03em}
+.path-price-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:4px;margin-bottom:20px}
+.path-btn-sub{width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;background:var(--cream);color:var(--purple);border:none;cursor:pointer;transition:background .15s}
+.path-btn-sub:hover{background:var(--parchment)}
+.path-btn-store{width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;background:rgba(74,144,217,.1);color:var(--sky);border:0.5px solid rgba(74,144,217,.3);cursor:pointer;transition:background .15s}
+.path-btn-store:hover{background:rgba(74,144,217,.18)}
+
+/* TEACHERS */
+.teachers-sec{background:var(--purple);padding:88px 48px}
+.teachers-sec .sec-eyebrow{color:rgba(255,255,255,.5)}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.tc{border-radius:18px;overflow:hidden;border:0.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);transition:background .15s;cursor:pointer}
+.tc:hover{background:rgba(255,255,255,.1)}
+.tc-top{height:80px;display:flex;align-items:flex-end;padding:16px}
+.tc-av{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--cream);border:2px solid rgba(255,255,255,.15)}
+.tc-body{padding:16px}
+.tc-name{font-size:15px;font-weight:700;color:var(--cream)}
+.tc-subject{font-size:12px;color:var(--mist);margin-top:3px}
+.tc-level{display:inline-block;font-size:10px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);padding:3px 10px;border-radius:999px;margin-top:8px;border:0.5px solid rgba(255,255,255,.1)}
+
+/* NOTES */
+.notes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:48px}
+.nc{background:var(--abyss);border:0.5px solid var(--void);border-radius:16px;padding:20px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;transition:border-color .15s}
+.nc:hover{border-color:var(--iris)}
+.nc-ic{width:44px;height:44px;min-width:44px;border-radius:12px;background:var(--void);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--lavender)}
+.nc-title{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:3px}
+.nc-meta{font-size:12px;color:var(--slate)}
+.nc-price{font-size:15px;font-weight:700;color:var(--lavender);margin-top:6px}
+
+/* WHY */
+.why-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:48px;align-items:start}
+.why-ghost{font-size:96px;font-weight:800;color:var(--abyss);letter-spacing:-.05em;line-height:1;margin-top:24px;user-select:none}
+.why-row{padding:24px 0;border-bottom:0.5px solid var(--midnight);display:flex;gap:18px}
+.why-row:first-child{border-top:0.5px solid var(--midnight)}
+.why-num{font-size:11px;color:var(--iris);font-weight:700;min-width:24px;padding-top:3px}
+.why-title{font-size:16px;font-weight:600;color:var(--cream);margin-bottom:6px}
+.why-desc{font-size:13px;color:var(--slate);line-height:1.6}
+
+/* PRICING */
+.pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.pr{border-radius:24px;padding:40px;border:0.5px solid var(--void);background:var(--onyx)}
+.pr.hot{border:1.5px solid var(--iris);background:var(--abyss);position:relative}
+.hot-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--purple);color:var(--cream);font-size:11px;font-weight:700;padding:4px 18px;border-radius:999px;white-space:nowrap}
+.pr-plan{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--slate);margin-bottom:12px}
+.pr-price{font-size:52px;font-weight:800;color:var(--cream);letter-spacing:-.04em;line-height:1}
+.pr-period{font-size:16px;color:var(--slate);font-weight:400}
+.pr-divider{border:none;border-top:0.5px solid var(--void);margin:28px 0}
+.pr-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--silver);padding:7px 0}
+.pr-check{font-size:16px;color:var(--mint)}
+.pr-feat.off{opacity:.35}
+.pr-btn-o{width:100%;margin-top:28px;padding:15px;border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;background:transparent;color:var(--cream);border:0.5px solid var(--dusk);cursor:pointer;transition:border-color .15s}
+.pr-btn-o:hover{border-color:var(--lavender)}
+.pr-btn-f{width:100%;margin-top:28px;padding:15px;border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;background:var(--cream);color:var(--purple);border:none;cursor:pointer;transition:background .15s}
+.pr-btn-f:hover{background:var(--parchment)}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.testi{background:var(--obsidian);border:0.5px solid var(--midnight);border-radius:20px;padding:32px}
+.stars{color:var(--gold);font-size:13px;letter-spacing:3px;margin-bottom:18px}
+.testi-q{font-size:15px;color:var(--cream);line-height:1.75;margin-bottom:22px}
+.testi-person{display:flex;align-items:center;gap:12px}
+.testi-av{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--cream)}
+.testi-name{font-size:13px;font-weight:600;color:var(--cream)}
+.testi-cl{font-size:11px;color:var(--slate);margin-top:2px}
+
+/* CTA */
+.cta-sec{background:var(--purple);padding:112px 48px;text-align:center}
+.cta-h2{font-size:clamp(40px,5vw,60px);font-weight:800;color:var(--cream);letter-spacing:-.04em;line-height:1.05;margin-bottom:16px}
+.cta-p{font-size:17px;color:var(--mist);max-width:420px;margin:0 auto 44px;line-height:1.65}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-w{background:var(--cream);color:var(--purple);font-size:15px;font-weight:700;padding:16px 40px;border-radius:12px;border:none;cursor:pointer;font-family:inherit}
+.cta-w:hover{background:var(--parchment)}
+.cta-o{background:transparent;color:var(--cream);font-size:15px;font-weight:500;padding:15px 32px;border-radius:12px;border:0.5px solid rgba(255,255,255,.3);cursor:pointer;font-family:inherit}
+.cta-o:hover{border-color:rgba(255,255,255,.7)}
+
+/* FOOTER */
+footer{background:var(--obsidian);border-top:0.5px solid var(--midnight);padding:64px 48px 32px}
+.ft-main{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.ft-brand p{font-size:13px;color:var(--slate);margin-top:12px;line-height:1.7;max-width:220px}
+.ft-col h5{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--slate);margin-bottom:16px}
+.ft-col a{display:block;font-size:13px;color:var(--silver);text-decoration:none;margin-bottom:10px;transition:color .15s}
+.ft-col a:hover{color:var(--cream)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:0.5px solid var(--midnight)}
+.ft-copy{font-size:12px;color:var(--slate)}
+.ft-soc{display:flex;gap:18px}
+.ft-soc a{font-size:13px;color:var(--slate);text-decoration:none;transition:color .15s}
+.ft-soc a:hover{color:var(--cream)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero,.section,.statsbar{padding:60px 20px}
+  .paths-grid,.t-grid,.notes-grid,.pr-grid,.testi-grid,.why-layout,.ft-main{grid-template-columns:1fr}
+  .sb-item{padding:16px 0;border-right:none;border-bottom:0.5px solid rgba(255,255,255,.1)}
+  .statsbar{grid-template-columns:1fr 1fr}
+  .why-ghost{font-size:60px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-dots">
+      <div class="ld" style="width:7px;height:7px;background:#7c4db8"></div>
+      <div class="ld" style="width:9px;height:9px;background:#fefcf6"></div>
+      <div class="ld" style="width:7px;height:7px;background:#7c4db8"></div>
+    </div>
+    <span class="logo-word">NEOGEN</span>
+  </div>
+  <div class="nav-links">
+    <a href="#classes">Classes</a>
+    <a href="#store">Store</a>
+    <a href="#teachers">Teachers</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-login">Log in</button>
+    <button class="btn-enroll">Enroll now</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-chip"><div class="chip-dot"></div><span class="chip-text">Now enrolling — O &amp; A Level 2025</span></div>
+  <h1>Your grades.<br><span class="acc">Your teachers.</span><br><span class="dim">Your platform.</span></h1>
+  <p>Pakistan's first digital academy built for the way your generation actually learns — fast, visual, and completely on your terms.</p>
+  <div class="hero-btns">
+    <button class="ha-main">Start learning &rarr;</button>
+    <button class="ha-ghost">Browse the store</button>
+  </div>
+  <div class="stats">
+    <div><div class="stat-n">2K<span>+</span></div><div class="stat-l">Students enrolled</div></div>
+    <div><div class="stat-n">6<span>+</span></div><div class="stat-l">Expert teachers</div></div>
+    <div><div class="stat-n">10<span>+</span></div><div class="stat-l">Subjects covered</div></div>
+    <div><div class="stat-n">92<span>%</span></div><div class="stat-l">Satisfaction rate</div></div>
+  </div>
+</div>
+
+<div class="section" id="classes" style="background:#0e0a18">
+  <div class="sec-eyebrow">Two ways to learn</div>
+  <div class="sec-h2">Pick your path.</div>
+  <div class="sec-sub">Subscribe to live classes or buy notes once — no pressure, your pace.</div>
+  <div class="paths-grid">
+    <div class="path-card path-sub">
+      <div>
+        <div class="path-badge path-badge-sub">&#9654; Subscription</div>
+        <div class="path-icon path-icon-sub">&#9673;</div>
+        <div class="path-h3">Teacher classes</div>
+        <div class="path-desc">Unlimited live + recorded sessions with Pakistan's best O &amp; A Level teachers. One plan, every subject.</div>
+        <div class="path-feats">
+          <div class="pf pf-sub">Live + recorded sessions</div>
+          <div class="pf pf-sub">All subjects in one plan</div>
+          <div class="pf pf-sub">Student community access</div>
+          <div class="pf pf-sub">Progress tracking dashboard</div>
+        </div>
+      </div>
+      <div>
+        <div class="path-price">Rs. 1,500</div>
+        <div class="path-price-note">per month &nbsp;·&nbsp; or Rs. 3,500 / term (save Rs. 1,000)</div>
+        <button class="path-btn-sub">Subscribe now</button>
+      </div>
+    </div>
+    <div class="path-card path-store">
+      <div>
+        <div class="path-badge path-badge-store">&#128722; One-time</div>
+        <div class="path-icon path-icon-store">&#128196;</div>
+        <div class="path-h3">Notes &amp; bundles</div>
+        <div class="path-desc">Buy exactly what you need. Topical notes, past papers, full bundles — written by your NEOGEN teachers.</div>
+        <div class="path-feats">
+          <div class="pf pf-store">Instant digital download</div>
+          <div class="pf pf-store">O &amp; A Level coverage</div>
+          <div class="pf pf-store">Exam-ready structure</div>
+          <div class="pf pf-store">No subscription needed</div>
+        </div>
+      </div>
+      <div>
+        <div class="path-price">From Rs. 299</div>
+        <div class="path-price-note">one-time purchase &nbsp;·&nbsp; own it forever</div>
+        <button class="path-btn-store">Browse the store</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="teachers-sec" id="teachers">
+  <div class="sec-eyebrow">Connected to learning</div>
+  <div class="sec-h2">Meet the faculty.</div>
+  <div class="sec-sub" style="color:rgba(255,255,255,.5)">Every teacher handpicked. Every session recorded.</div>
+  <div class="t-grid">
+    <div class="tc"><div class="tc-top" style="background:#2d1448"><div class="tc-av" style="background:#4a2880">FK</div></div><div class="tc-body"><div class="tc-name">Fahad Khan</div><div class="tc-subject">Computer Science</div><div class="tc-level">O &amp; A Level</div></div></div>
+    <div class="tc"><div class="tc-top" style="background:#0f2e1a"><div class="tc-av" style="background:#1e5c3a">JA</div></div><div class="tc-body"><div class="tc-name">Javeria Amer</div><div class="tc-subject">English Language</div><div class="tc-level">O Level</div></div></div>
+    <div class="tc"><div class="tc-top" style="background:#2e0f18"><div class="tc-av" style="background:#5c1e2e">BZ</div></div><div class="tc-body"><div class="tc-name">Bilal Zindani</div><div class="tc-subject">Law</div><div class="tc-level">A Level</div></div></div>
+    <div class="tc"><div class="tc-top" style="background:#0f1e30"><div class="tc-av" style="background:#1e3a5c">AZ</div></div><div class="tc-body"><div class="tc-name">Adian Zaidi</div><div class="tc-subject">English Language</div><div class="tc-level">A Level</div></div></div>
+    <div class="tc"><div class="tc-top" style="background:#2e1e0f"><div class="tc-av" style="background:#5c3d1e">SA</div></div><div class="tc-body"><div class="tc-name">Sheikh Anas</div><div class="tc-subject">Economics</div><div class="tc-level">A Level</div></div></div>
+    <div class="tc"><div class="tc-top" style="background:#1a0f30"><div class="tc-av" style="background:#2e1e5c">AH</div></div><div class="tc-body"><div class="tc-name">Ali Hassan</div><div class="tc-subject">Business Studies</div><div class="tc-level">O &amp; A Level</div></div></div>
+  </div>
+</div>
+
+<div class="section" id="store" style="background:#0e0a18">
+  <div class="sec-eyebrow">Notes store</div>
+  <div class="sec-h2">Top sellers.</div>
+  <div class="sec-sub">Written by the same teachers who run the classes.</div>
+  <div class="notes-grid">
+    <div class="nc"><div class="nc-ic">&#128200;</div><div><div class="nc-title">Economics A Level Bundle</div><div class="nc-meta">Sheikh Anas &middot; 14 topics</div><div class="nc-price">Rs. 799</div></div></div>
+    <div class="nc"><div class="nc-ic">&#127978;</div><div><div class="nc-title">Business Studies Full Pack</div><div class="nc-meta">Ali Hassan &middot; 10 topics</div><div class="nc-price">Rs. 599</div></div></div>
+    <div class="nc"><div class="nc-ic">&#128187;</div><div><div class="nc-title">Computer Science Notes</div><div class="nc-meta">Fahad Khan &middot; 12 topics</div><div class="nc-price">Rs. 499</div></div></div>
+    <div class="nc"><div class="nc-ic">&#128218;</div><div><div class="nc-title">English Language Bundle</div><div class="nc-meta">Javeria Amer &middot; 8 topics</div><div class="nc-price">Rs. 449</div></div></div>
+    <div class="nc"><div class="nc-ic">&#9878;</div><div><div class="nc-title">Law A Level Complete Notes</div><div class="nc-meta">Bilal Zindani &middot; 9 topics</div><div class="nc-price">Rs. 649</div></div></div>
+    <div class="nc"><div class="nc-ic">&#128196;</div><div><div class="nc-title">Past Paper Mega Bundle</div><div class="nc-meta">All subjects &middot; 2019&ndash;2024</div><div class="nc-price">Rs. 999</div></div></div>
+  </div>
+</div>
+
+<div class="section" style="background:#08050f">
+  <div class="sec-eyebrow">Why NEOGEN</div>
+  <div class="sec-h2">Different by design.</div>
+  <div class="why-layout">
+    <div>
+      <div class="sec-sub">We didn't move a tuition center online. We built something entirely new.</div>
+      <div class="why-ghost">NEO<br>GEN</div>
+    </div>
+    <div>
+      <div class="why-row"><div class="why-num">01</div><div><div class="why-title">No WhatsApp chaos</div><div class="why-desc">Everything in one clean place — schedules, recordings, notes. No group spam.</div></div></div>
+      <div class="why-row"><div class="why-num">02</div><div><div class="why-title">Every class recorded</div><div class="why-desc">Miss a session? Watch it back the same day, as many times as you need.</div></div></div>
+      <div class="why-row"><div class="why-num">03</div><div><div class="why-title">Teachers who actually explain</div><div class="why-desc">Handpicked for subject mastery and the ability to make things click.</div></div></div>
+      <div class="why-row"><div class="why-num">04</div><div><div class="why-title">Built for Gen Z</div><div class="why-desc">Fast, clean, visual. A platform that feels like the apps you already love.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="pricing" style="background:#1a0b30">
+  <div class="sec-eyebrow">Pricing</div>
+  <div class="sec-h2">Simple. Transparent.</div>
+  <div class="sec-sub">No hidden fees. Cancel anytime. The notes store is always separate.</div>
+  <div class="pr-grid">
+    <div class="pr">
+      <div class="pr-plan">Monthly</div>
+      <div class="pr-price">1,500 <span class="pr-period">Rs/mo</span></div>
+      <hr class="pr-divider">
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> All teachers &amp; subjects</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Live + recorded sessions</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Student community</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Progress tracking</div>
+      <div class="pr-feat off"><span class="pr-check" style="color:#3d2a60">&#10007;</span> Free notes bundle</div>
+      <button class="pr-btn-o">Get started</button>
+    </div>
+    <div class="pr hot">
+      <div class="hot-badge">Best value</div>
+      <div class="pr-plan">Term &mdash; 3 months</div>
+      <div class="pr-price">3,500 <span class="pr-period">Rs/term</span></div>
+      <hr class="pr-divider">
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Everything in monthly</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Save Rs. 1,000</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Priority support</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Progress tracking</div>
+      <div class="pr-feat"><span class="pr-check">&#10003;</span> Free notes bundle included</div>
+      <button class="pr-btn-f">Enroll now</button>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:#0e0a18">
+  <div class="sec-eyebrow">Student stories</div>
+  <div class="sec-h2">Real results.</div>
+  <div class="sec-sub">From struggling to scoring — what NEOGEN students say.</div>
+  <div class="testi-grid">
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-q">"Economics finally clicked for me. Went from barely passing to an A in my mocks. The recorded sessions changed everything."</div><div class="testi-person"><div class="testi-av" style="background:#1e3a1e">SA</div><div><div class="testi-name">Sara A.</div><div class="testi-cl">Economics A Level</div></div></div></div>
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-q">"Finally an online academy that feels modern. Clean platform, great teachers, and notes that are actually useful before an exam."</div><div class="testi-person"><div class="testi-av" style="background:#1a2a4a">HK</div><div><div class="testi-name">Hamza K.</div><div class="testi-cl">CS &amp; Business O Level</div></div></div></div>
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-q">"Bought the English bundle two days before my paper. Best decision I made all year. Structured exactly how examiners mark it."</div><div class="testi-person"><div class="testi-av" style="background:#3a1e40">AM</div><div><div class="testi-name">Aiza M.</div><div class="testi-cl">English Language O Level</div></div></div></div>
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-q">"Tried two platforms before this. No comparison. NEOGEN actually feels like it was made for us, not made for 2012."</div><div class="testi-person"><div class="testi-av" style="background:#2e3a1e">ZR</div><div><div class="testi-name">Zaid R.</div><div class="testi-cl">Business Studies A Level</div></div></div></div>
+  </div>
+</div>
+
+<div class="cta-sec">
+  <div class="cta-h2">Your A* starts<br>right here.</div>
+  <p class="cta-p">Join thousands of O &amp; A Level students already learning the NEOGEN way.</p>
+  <div class="cta-btns">
+    <button class="cta-w">Enroll now &rarr;</button>
+    <button class="cta-o">Browse the store</button>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-main">
+    <div class="ft-brand">
+      <div class="logo">
+        <div class="logo-dots">
+          <div class="ld" style="width:7px;height:7px;background:#7c4db8"></div>
+          <div class="ld" style="width:9px;height:9px;background:#fefcf6"></div>
+          <div class="ld" style="width:7px;height:7px;background:#7c4db8"></div>
+        </div>
+        <span class="logo-word">NEOGEN</span>
+      </div>
+      <p>Pakistan's next-generation digital learning platform for O &amp; A Level students.</p>
+    </div>
+    <div class="ft-col"><h5>Platform</h5><a href="#">Classes</a><a href="#">Notes store</a><a href="#">Pricing</a><a href="#">Dashboard</a></div>
+    <div class="ft-col"><h5>Teachers</h5><a href="#">Fahad Khan</a><a href="#">Javeria Amer</a><a href="#">Sheikh Anas</a><a href="#">Ali Hassan</a></div>
+    <div class="ft-col"><h5>Company</h5><a href="#">About</a><a href="#">Contact</a><a href="#">Instagram</a><a href="#">Blog</a></div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">&copy; 2025 NEOGEN. All rights reserved.</div>
+    <div class="ft-soc">
+      <a href="https://instagram.com/neogen_success" target="_blank">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">TikTok</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
